@@ -20,6 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "deploy": "aws s3 sync build/ s3://corey-cycles --acl public-read --cache-control max-age-172800 --delete",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

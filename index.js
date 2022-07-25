@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const dotenv = require("dotenv");
+const config = require("dotenv");
 const mongoose = require("mongoose");
 const authRoute = require("./routes/auth");
 const usersRoute = require("./routes/users");
@@ -11,16 +11,14 @@ const cors = require("cors");
 //for uploading images
 const multer = require("multer");
 
-dotenv.config();
+config.config();
 app.use(express.json());
 app.use(cors());
+
 //mongoose connection
-mongoose
-  .connect(process.env.MONGO_URL)
-  .then(() => console.log("DBConnection successful!"))
-  .catch((err) => {
-    console.log(err);
-  });
+const connectDB = require("./dbconnect/DBconnect");
+
+connectDB();
 
 //storage for images
 const storage = multer.diskStorage({
@@ -46,7 +44,6 @@ app.use("/api/users", usersRoute);
 app.use("/api/posts", postsRoute);
 app.use("/api/categories", categoriesRoute);
 
-app.listen("5000", () => {
-  console.log("backend running on port 5000...");
+app.listen("8000", () => {
+  console.log("backend running on port 8000...");
 });
- 
